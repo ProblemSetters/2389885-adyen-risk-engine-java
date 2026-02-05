@@ -4,6 +4,7 @@ import com.hackerrank.risk.engine.RiskEngine;
 import com.hackerrank.risk.engine.RiskEngineImpl;
 import com.hackerrank.risk.generator.TransactionDataGenerator;
 import com.hackerrank.risk.model.RiskResult;
+import com.hackerrank.risk.model.RiskStatus;
 import com.hackerrank.risk.model.Transaction;
 import com.hackerrank.risk.storage.AccountHistory;
 import com.hackerrank.risk.storage.TransactionStore;
@@ -68,12 +69,20 @@ public class PerformanceTest {
         
         // Sanity check: should have processed all transactions
         assertTrue(riskyCount >= 0, "Should have evaluated all transactions");
+        // With correct implementation, not all transactions are risky (expect a mix of SAFE and RISKY)
+        assertTrue(riskyCount < transactions.size(),
+                "Expected mix of SAFE and RISKY outcomes, not all RISKY");
     }
 
     @Test
     @DisplayName("Test Case 9: Memory Cleanup - Old transactions should be cleanable")
     public void testMemoryCleanup() {
         section("Test Case 9: Memory Cleanup");
+        // First transaction for an account should be SAFE (no history yet)
+        RiskEngine engine = new RiskEngineImpl();
+        Transaction first = new Transaction("T0", "A0", 100.0, 1000000000L, "M0");
+        assertEquals(RiskStatus.SAFE, engine.evaluateTransaction(first).getStatus(),
+                "First transaction for an account should be SAFE");
         TransactionStore store = new TransactionStore();
         String accountId = "A001";
         long baseTime = 1000000000L;
@@ -160,13 +169,20 @@ public class PerformanceTest {
         
         // Should have detected some risky transactions due to high frequency
         assertTrue(riskyCount > 0, "Should detect risky transactions in high-frequency scenario");
+        // With correct implementation, not all are risky (early transactions should be SAFE)
+        assertTrue(riskyCount < transactions.size(),
+                "Expected mix of SAFE and RISKY outcomes, not all RISKY");
     }
 
     @Test
     @DisplayName("Performance: Verify O(log n) complexity with TreeMap operations")
     public void testTreeMapPerformance() {
         section("TreeMap Performance (O(log n) scaling)");
+        // First transaction for an account should be SAFE (no history yet)
         RiskEngine engine = new RiskEngineImpl();
+        Transaction first = new Transaction("T0", "A0", 100.0, 1000000000L, "M0");
+        assertEquals(RiskStatus.SAFE, engine.evaluateTransaction(first).getStatus(),
+                "First transaction for an account should be SAFE");
         String accountId = "A001";
         long baseTime = 1000000000L;
         
@@ -210,7 +226,11 @@ public class PerformanceTest {
     @DisplayName("Stress Test: Multiple accounts with varied patterns")
     public void testMultipleAccountsStress() {
         section("Stress Test: Multiple Accounts");
+        // First transaction for an account should be SAFE (no history yet)
         RiskEngine engine = new RiskEngineImpl();
+        Transaction first = new Transaction("T0", "A0", 100.0, 1000000000L, "M0");
+        assertEquals(RiskStatus.SAFE, engine.evaluateTransaction(first).getStatus(),
+                "First transaction for an account should be SAFE");
         long baseTime = 1000000000L;
         
         // Create varied patterns across 100 accounts
@@ -275,6 +295,9 @@ public class PerformanceTest {
         
         System.out.println("  Risky transactions in burst: " + riskyDetected + " / 6");
         assertTrue(riskyDetected > 0, "Should detect high-frequency pattern even in high volume");
+        // With correct implementation, not all 6 in the burst are risky (e.g. first few may be SAFE)
+        assertTrue(riskyDetected < 6,
+                "Expected mix of SAFE and RISKY in burst, not all RISKY");
     }
 
     /**
