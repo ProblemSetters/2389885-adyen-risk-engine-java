@@ -1,5 +1,9 @@
 # Real-Time Transaction Risk Engine
 
+**Candidate task:** The risk engine is stubbed so that every transaction is reported as RISKY (placeholder reason). The three risk rules are also stubbed. The project builds and runs, but **all 17 tests fail** and the output is wrong. Implement the three rules (`AmountAnomalyRule`, `HighFrequencyRule`, `MerchantDiversityRule`) and fix `RiskEngineImpl` to use them so that all tests pass.
+
+---
+
 ## Overview
 
 Build an in-memory risk engine in **core Java only** (no frameworks). For each transaction, evaluate it as **SAFE** or **RISKY** using that account’s recent history. Return status and, when risky, one or more reasons.
