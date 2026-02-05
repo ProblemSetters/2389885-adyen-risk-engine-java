@@ -1,0 +1,21 @@
+---
+version: 1.0
+configuration:
+  has_webserver: false
+  readonly_paths:
+    - src/test/*
+    - generate-data.sh
+  scoring:
+    command: mvn clean test -Dsurefire.reportFormat=xml && bash merge_test_reports.sh
+    files:
+      - reports/test_result.xml
+    hidden_files_paths:
+      - src/test/java/com/hackerrank/risk/PerformanceTest.java
+  ide_config:
+    default_open_files:
+      - src/main/java/com/hackerrank/risk/Main.java
+      - src/main/java/com/hackerrank/risk/engine/RiskEngineImpl.java
+    project_menu:
+      run: mvn clean package -DskipTests && java -jar target/risk-engine-1.0.jar < sample-transactions.csv
+      install: mvn clean install -DskipTests
+      test: mvn clean test -Dsurefire.reportFormat=xml && bash merge_test_reports.sh
