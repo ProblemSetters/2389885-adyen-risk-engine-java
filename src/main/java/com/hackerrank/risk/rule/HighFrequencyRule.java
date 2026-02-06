@@ -7,10 +7,10 @@ import com.hackerrank.risk.storage.TransactionStore;
 import java.util.Optional;
 
 public class HighFrequencyRule implements RiskRule {
-    // TODO: Implement high-frequency detection (e.g. > 5 transactions in 2-minute window)
 
     @Override
     public Optional<RiskReason> evaluate(Transaction transaction, TransactionStore store) {
+        // TODO: Implement high-frequency detection (e.g. > 5 transactions in 2-minute window)
         return Optional.empty();
     }
 }

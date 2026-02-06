@@ -17,7 +17,7 @@ public class RiskEngineImpl implements RiskEngine {
 
     @Override
     public RiskResult evaluateTransaction(Transaction transaction) {
-        // TODO: Replace with real rule evaluation
+        // TODO: Replace with real rule evaluation (AmountAnomaly, store tx, HighFrequency, MerchantDiversity; then SAFE if no reasons else RISKY)
         store.storeTransaction(transaction);
         return new RiskResult(RiskStatus.RISKY, Collections.singletonList(RiskReason.MERCHANT_DIVERSITY));
     }
