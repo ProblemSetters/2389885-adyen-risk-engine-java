@@ -9,23 +9,16 @@ import java.util.Optional;
 
 public class AmountAnomalyRule implements RiskRule {
     private static final double MULTIPLIER = 3.0;
-    private static final int MIN_TRANSACTIONS_FOR_DETECTION = 3;
 
     @Override
     public Optional<RiskReason> evaluate(Transaction transaction, TransactionStore store) {
         String accountId = transaction.getAccountId();
         AccountHistory history = store.getAccountHistory(accountId);
-        
-        if (history == null) {
+
+        if (history == null || history.getRecentTransactionCount() == 0) {
             return Optional.empty();
         }
-        
-        int recentCount = history.getRecentTransactionCount();
-        
-        if (recentCount < MIN_TRANSACTIONS_FOR_DETECTION) {
-            return Optional.empty();
-        }
-        
+
         double averageAmount = history.getRecentAverage();
         double threshold = averageAmount * MULTIPLIER;
         
