@@ -102,9 +102,7 @@ mvn clean test
 **Success:** App run on `sample-transactions.csv` shows expected SAFE/RISKY lines, and `mvn clean test` passes.
 
 
-Test reports are generated as `unit.xml` from Maven Surefire/Failsafe XML output.
 ## Environment
 
 - Java version: 25
 - Maven dependency and plugin upgrades are captured in `pom.xml`.
-- Test reports are generated as `unit.xml` from Maven Surefire/Failsafe XML output.
