@@ -100,3 +100,6 @@ mvn clean test
 - Tests expect: 10k transactions in &lt; 2s; single-account 10k in &lt; 3s; scaling better than linear in history size. Old data should be removable to keep memory bounded.
 
 **Success:** App run on `sample-transactions.csv` shows expected SAFE/RISKY lines, and `mvn clean test` passes.
+
+
+Test reports are generated as `unit.xml` from Maven Surefire/Failsafe XML output.
