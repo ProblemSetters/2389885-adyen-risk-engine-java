@@ -103,3 +103,8 @@ mvn clean test
 
 
 Test reports are generated as `unit.xml` from Maven Surefire/Failsafe XML output.
+## Environment
+
+- Java version: 25
+- Maven dependency and plugin upgrades are captured in `pom.xml`.
+- Test reports are generated as `unit.xml` from Maven Surefire/Failsafe XML output.
