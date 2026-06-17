@@ -6,8 +6,9 @@ configuration:
     - src/test/*
     - generate-data.sh
   scoring:
-    command: mvn clean test -Dsurefire.reportFormat=xml; bash merge_test_reports.sh
+    command: bash .hackerrank/run-tests-with-unit-xml.sh 'mvn clean test -Dsurefire.reportFormat=xml; bash merge_test_reports.sh'
     files:
+      - unit.xml
       - reports/test_result.xml
     hidden_files_paths:
       - src/test/java/com/hackerrank/risk/PerformanceTest.java
@@ -21,4 +22,4 @@ configuration:
     project_menu:
       run: mvn clean package -DskipTests && java -jar target/risk-engine-1.0.jar < sample-transactions.csv
       install: mvn clean install -DskipTests
-      test: mvn clean test -Dsurefire.reportFormat=xml; bash merge_test_reports.sh
+      test: bash .hackerrank/run-tests-with-unit-xml.sh 'mvn clean test -Dsurefire.reportFormat=xml; bash merge_test_reports.sh'
