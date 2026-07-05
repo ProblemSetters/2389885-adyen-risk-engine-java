@@ -1,22 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.hackerrank</groupId>
     <artifactId>risk-engine</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-
     <name>Transaction Risk Engine</name>
     <description>Real-time transaction risk evaluation engine</description>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>25</maven.compiler.source>
-        <maven.compiler.target>25</maven.compiler.target>
         <junit.version>5.9.3</junit.version>
-    <java.version>25</java.version><maven.compiler.release>25</maven.compiler.release></properties>
-
+        <java.version>25</java.version>
+        <maven.compiler.release>25</maven.compiler.release>
+    </properties>
     <dependencies>
         <!-- JUnit 5 for testing -->
         <dependency>
@@ -26,7 +22,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <!-- Maven Compiler Plugin -->
@@ -35,11 +30,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.15.0</version>
                 <configuration>
-                    <source>21</source>
-                    <target>21</target>
-                <release>25</release></configuration>
+                    <release>25</release>
+                </configuration>
             </plugin>
-
             <!-- Maven Surefire Plugin for running tests and generating XML reports -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -50,9 +43,13 @@
                         <include>**/*Test.java</include>
                     </includes>
                     <reportFormat>xml</reportFormat>
-                <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory><useModulePath>false</useModulePath></configuration>
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                    <useModulePath>false</useModulePath>
+                    <parallel>classes</parallel>
+                    <threadCount>4</threadCount>
+                    <reuseForks>true</reuseForks>
+                </configuration>
             </plugin>
-
             <!-- Maven JAR Plugin to create executable JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -66,7 +63,6 @@
                     </archive>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 </project>
